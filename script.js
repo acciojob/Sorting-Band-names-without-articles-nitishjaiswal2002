@@ -1,39 +1,22 @@
-//your code here
+ // Array of band names
+        let bandNames = ['The Rolling Stones', 'Led Zeppelin', 'The Beatles', 'Aerosmith'];
 
-let arr = [
-  "The Virupaksha Temple", // "Virupaksha Temple"
-  "a Victoria Memorial", //"Victoria Memorial"
-  "an Tajmahal", // "Tajmahal"
-];
+        // Function to remove articles and sort the array
+        function sortBandNames(names) {
+            return names.sort((a, b) => {
+                const articles = /^(the|an|a)\s/i; // Regular expression to match articles
+                const nameA = a.replace(articles, '').toLowerCase();
+                const nameB = b.replace(articles, '').toLowerCase();
+                return nameA.localeCompare(nameB);
+            });
+        }
 
-let articleLessArray = [];
-/* ["Virupaksha Temple", "Victoria Memorial", "Tajmahal" ]
-{
-    "Virupaksha Temple": "The Virupaksha Temple",
-    "Victoria Memorial": "a Victoria Memorial",
-    "Tajmahal": "an Tajmahal"
-}
-*/
-let mp = {};
-// {aricleLessItem: ""}
+        // Get the <ul> element by its id
+        const ulElement = document.getElementById('band');
 
-for (let i = 0; i < arr.length; i++) {
-  let articleLessItem = arr[i].replace(regexp, "").trim();
-  articleLessItem = articleLessItem.replace(/  /g, " "); // remove two spaces with a single space
-  articleLessArray.push(articleLessItem);
-  mp[articleLessItem] = arr[i];
-  // for i = 0 arr[i] = "The Virupaksha Temple", articlLessItem = "Virupaksha Temple"
-
-  // mp = { "Virupaksha Temple": "The Virupaksha Temple" }
-}
-// articleLessArray = ["Virupaksha Temple",  "Victoria Memorial", "Tajmahal" ]
-//
-articleLessArray.sort();
-
-let ans = [];
-
-for (let i of articleLessArray) {
-  ans.push(mp[i]);
-}
-
-console.log(ans);
+        // Sort the array and create <li> elements for each band name
+        sortBandNames(bandNames).forEach(name => {
+            const liElement = document.createElement('li');
+            liElement.textContent = name;
+            ulElement.appendChild(liElement);
+        });
