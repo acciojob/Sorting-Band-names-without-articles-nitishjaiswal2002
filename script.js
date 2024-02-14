@@ -3,12 +3,19 @@
 
         // Function to remove articles and sort the array
         function sortBandNames(names) {
-            return names.sort((a, b) => {
-                const articles = /^(the|an|a)\s/i; // Regular expression to match articles
-                const nameA = a.replace(articles, '').toLowerCase();
-                const nameB = b.replace(articles, '').toLowerCase();
-                return nameA.localeCompare(nameB);
-            });
+           // Function to remove articles from the beginning of band names
+      function removeArticles(name) {
+        return name.replace(/^(a|an|the)\s+/i, '');
+      }
+
+      // Sort the band names in lexicographic order (without articles)
+      bandNames.sort((a, b) => removeArticles(a).localeCompare(removeArticles(b)));
+
+      // Create a string of <li> elements containing the sorted band names
+      const listItems = bandNames.map(name => `<li>${name}</li>`).join('');
+
+      // Insert the list items into the <ul> element with id 'band'
+      document.getElementById('band').innerHTML = listItems;
         }
 
         // Get the <ul> element by its id
